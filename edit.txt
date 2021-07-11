@@ -1,0 +1,53 @@
+@extends('layout.template')
+
+@section('titre')
+  Modifier diplome
+@endsection
+
+@section('titrepage')
+  Diplome
+@endsection
+
+@section('contenu')
+
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Modifier diplome</h3>
+    </div>
+    <!-- /.card-header -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+    @foreach ($errors->all() as $error)
+       <li> {{$error}}</li>
+    @endforeach
+        </ul>
+    </div>
+    @endif
+    <!-- form start -->
+    <form id="quickForm" method="post" action="{{route('diplome.update',$diplome->email)}}">
+      @csrf
+      @method('PUT')
+        <div class="card-body">
+        <div class="form-group">
+          <label for="nom">nom</label>
+          <input type="text" name="nom" class="nom" id="nom" placeholder="Enter nom">
+        </div>
+        <div class="form-group">
+            <label for="prenom">prenom</label>
+            <input type="text" name="nb_cours" class="nb_cours" id="nb_cours" placeholder="Enter le nombre de cours">
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input type="text" name="nb_groupes" class="nb_groupes" id="nb_groupes" placeholder="Enter email">
+          </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+
+
+@endsection

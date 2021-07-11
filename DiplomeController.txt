@@ -1,0 +1,100 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Diplome;
+use Illuminate\Http\Request;
+
+class DiplomeController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        $Diplomes=Diplome::all();
+        return view('Diplome.index',compact('Diplome'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+        return view('Diplomes.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+        $request->validate(['nom'=>'required','nb_cours'=>'required',
+        'nb_groupes'=>'required']);
+        Diplome::create($request->all());
+        return redirect()->route("Diplomes.index")->with('success','Diplome!');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Diplome  $diplome
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Diplome $diplome)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Diplome  $diplome
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Diplome $diplome)
+    {
+        //
+        return view('diplome.edit',compact('diplome'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Diplome $diplome
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Diplome $diplome)
+    {
+        //
+        $request->validate(['nom'=>'required','prenom'=>'required',
+        'email'=>'required','login'=>'required','mdp'=>'required','adress'=>'required']);
+        $diplome->update($request->all());
+        return redirect()->route("diplome.index")->with('success','Diplome modifié avec succes!');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Diplome  $diplome
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Diplome $diplome)
+    {
+        //
+        $diplome->delete();
+        return redirect()->route("diplomes.index")->with('success','Diplome supprimé avec succes!');
+    }
+}

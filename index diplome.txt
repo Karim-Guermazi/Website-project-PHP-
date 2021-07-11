@@ -1,0 +1,65 @@
+@extends('layout.template')
+
+@section('titre')
+  diplome
+@endsection
+
+@section('titrepage')
+  diplomes
+@endsection
+
+@section('contenu')
+
+
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">diplome</h3>
+        </div>
+
+        @if ($msg=Session::get('success'))
+        <div class="alert alert-success">
+          {{$msg}}
+        </div>
+        @endif
+
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>nom</th>
+                <th>nb_cours</th>
+                <th>nb_groupes</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach ($diplomes as $diplome)
+                <tr>
+                    <td>{{$diplome->nom}}</td>
+                    <td>{{$diplome->nb_cours}}</td>
+                    <td>{{$diplome->nb_groupes}}</td>
+                <td>
+                        <form method="post" action="{{route('diplomes.destroy',$diplome->email)}}">
+                        @csrf
+                        @method('DELETE')
+                       <a href="{{route('diplomes.edit',$diplome->email)}}">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button>
+                        </a>
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+               </form>
+            </tr>
+            @endforeach
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th>nom</th>
+                <th>nb_cours</th>
+                <th>nb_groupes</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    @endsection

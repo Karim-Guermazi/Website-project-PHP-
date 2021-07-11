@@ -1,0 +1,52 @@
+@extends('layout.template')
+
+@section('titre')
+  Ajouter diplome
+@endsection
+
+@section('titrepage')
+  Diplomes
+@endsection
+
+@section('contenu')
+
+<div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Ajouter diplome</h3>
+    </div>
+    <!-- /.card-header -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+    @foreach ($errors->all() as $error)
+       <li> {{$error}}</li>
+    @endforeach
+        </ul>
+    </div>
+    @endif
+    <!-- form start -->
+    <form id="quickForm" method="post" action="{{route('diplomes.store')}}">
+      @csrf
+        <div class="card-body">
+        <div class="form-group">
+          <label for="nom">nom</label>
+          <input type="text" name="nom" class="form-group" id="nom" placeholder="Enter nom">
+        </div>
+        <div class="form-group">
+            <label for="prenom">nb_cours</label>
+         <input type="text" name="nb_cours" class="form-group" id="nb_cours" placeholder="Enter le nombre de cours">
+          </div>
+          <div class="form-group">
+            <label for="email">nb_groupes</label>
+            <input type="text" name="nb_groupes" class="form-group" id="nb_groupes" placeholder="Enter le nombre de groupes">
+          </div>
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+      </div>
+    </form>
+  </div>
+
+
+@endsection
